@@ -18,7 +18,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    console.log("Connected to MongoDB");
+    // console.log("Connected to MongoDB");
   } catch (err) {
     console.error(err);
   }
@@ -30,11 +30,17 @@ async function run() {
     const { name, price, description } = req.body;
     const product = { name, price, description };
     const result = await collection.insertOne(product);
-    console.log(result);
+    // console.log(result);
     res.json({
       message: "Product added successfully",
       productId: result.insertedId,
     });
+  });
+
+  //   get api
+  app.get("/api/products", async (req, res) => {
+    const products = await collection.find().toArray();
+    res.json(products);
   });
 }
 run().catch(console.dir);
