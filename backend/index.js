@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 5500;
 // middleware
 const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 require("dotenv").config();
 // mongodb
@@ -19,9 +20,22 @@ async function run() {
     await client.connect();
     console.log("Connected to MongoDB");
   } catch (err) {
-    console.error(err); 
+    console.error(err);
   }
+  const datebase = client.db("Shop");
+  const collection = datebase.collection("products");
 
+  //   post api
+  app.post("/api/products", async (req, res) => {
+    const { name, price, description } = req.body;
+    const product = { name, price, description };
+    const result = await collection.insertOne(product);
+    console.log(result);
+    res.json({
+      message: "Product added successfully",
+      productId: result.insertedId,
+    });
+  });
 }
 run().catch(console.dir);
 
