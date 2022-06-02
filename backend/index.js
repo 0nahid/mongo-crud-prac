@@ -8,7 +8,7 @@ app.use(express.json());
 require("dotenv").config();
 // mongodb
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.z93bc.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -22,8 +22,8 @@ async function run() {
   } catch (err) {
     console.error(err);
   }
-  const datebase = client.db("Shop");
-  const collection = datebase.collection("products");
+  const database = client.db("Shop");
+  const collection = database.collection("products");
 
   //   post api
   app.post("/api/products", async (req, res) => {
@@ -41,6 +41,16 @@ async function run() {
   app.get("/api/products", async (req, res) => {
     const products = await collection.find().toArray();
     res.json(products);
+  });
+
+  //   delete api
+  app.delete("/api/products/:id", async (req, res) => {
+    const { id } = req.params;
+    const result = await collection.deleteOne({ _id: ObjectId(id) });
+    res.json({
+      message: "Product deleted successfully",
+      count: result.deletedCount,
+    });
   });
 }
 run().catch(console.dir);
