@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
-import Swal from "sweetalert2"
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 export default function Products() {
     const [products, setProducts] = useState([])
     useEffect(() => {
@@ -41,7 +42,7 @@ export default function Products() {
                             <h5 className="card-title">{product.name}</h5>
                             <p className="card-text">{product.description}</p>
                             <p className="card-text">{product.price}</p>
-                            <button className="btn btn-primary">Update</button>
+                            <Link to={`/update/${product._id}`} className="btn btn-primary">Update</Link>
                             <button onClick={() => handleDeleteUser(product._id)} className="btn btn-danger">Delete</button>
                         </div>
                     </div>

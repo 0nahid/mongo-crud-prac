@@ -43,6 +43,21 @@ async function run() {
     res.json(products);
   });
 
+  // update api
+  app.put("/api/products/:id", async (req, res) => {
+    const { id } = req.params;
+    const { name, price, description } = req.body;
+    const product = { name, price, description };
+    const result = await collection.updateOne(
+      { _id: ObjectId(id) },
+      { $set: product }
+    );
+    res.json({
+      message: "Product updated successfully",
+      result,
+    });
+  });
+
   //   delete api
   app.delete("/api/products/:id", async (req, res) => {
     const { id } = req.params;
