@@ -11,13 +11,13 @@ export default function Update() {
             .then((data) => setProduct(data));
     }, [id]);
     const handleNameChange = (e) => {
-        setProduct({ ...product, name: e.target.value });
+        (e.target.value.trim() === "") ? Swal.fire("Error", "Name cannot be blank", "error") : setProduct({ ...product, name: e.target.value });
     };
     const handlePriceChange = (e) => {
-        setProduct({ ...product, price: e.target.value });
+        (e.target.value.trim() === "") ? Swal.fire("Error", "Price cannot be blank", "error") : setProduct({ ...product, price: e.target.value });
     }
     const handleDescriptionChange = (e) => {
-        setProduct({ ...product, description: e.target.value });
+        (e.target.value.trim() === "") ? Swal.fire("Error", "Description cannot be blank", "error") : setProduct({ ...product, description: e.target.value });
     }
     // update the product
     const handleUpdateProduct = (e) => {
@@ -37,7 +37,7 @@ export default function Update() {
     }
 
     return (
-        <div>Update page of {id}
+        <div>Update page of {product.name}
             <form onSubmit={handleUpdateProduct} className="w-75 m-auto mt-5">
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
