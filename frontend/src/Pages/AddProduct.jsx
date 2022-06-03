@@ -10,7 +10,7 @@ export default function AddProduct() {
         const price = priceRef.current.value;
         const description = descriptionRef.current.value;
         const newProduct = { name, price, description };
-        console.log(newProduct);
+        // console.log(newProduct);
         fetch("http://localhost:5500/api/products", {
             method: "POST",
             headers: {

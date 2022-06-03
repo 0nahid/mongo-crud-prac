@@ -31,7 +31,7 @@ export default function Update() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 data.result.matchedCount === 1 ? Swal.fire("Updated!", "Your product has been updated.", "success") : Swal.fire("Error", "Product not updated", "error");
             });
     }
@@ -44,7 +44,7 @@ export default function Update() {
                     <input type="text" value={product.name || ''} onChange={handleNameChange} className="form-control" id="name" name="name" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="price">Price</label>
+                    <label htmlFor="price">Price <small>(bdt)</small></label>
                     <input type="number" value={product.price || ''} onChange={handlePriceChange} className="form-control" id="price" name="price" />
                 </div>
                 <div className="form-group">

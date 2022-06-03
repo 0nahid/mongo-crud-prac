@@ -25,7 +25,7 @@ export default function Products() {
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                        console.log(data);
+                        // console.log(data);
                         data.count ? Swal.fire("Deleted!", "Your file has been deleted.", "success") : Swal.fire("Error", "Product not deleted", "error");
                         setProducts(products.filter((product) => product._id !== id))
                     });
@@ -39,11 +39,11 @@ export default function Products() {
                 products.map(product => (
                     <div className="card mt-2" key={product.id}>
                         <div className="card-body">
-                            <h5 className="card-title">{product.name}</h5>
-                            <p className="card-text">{product.description}</p>
-                            <p className="card-text">{product.price}</p>
+                            <h5 className="card-title"><small>Name: </small> {product.name}</h5>
+                            <p className="card-text"> <small>Description: </small> {product.description}</p>
+                            <p className="card-text"><small>Price: </small>{product.price} Bdt Only</p>
                             <Link to={`/update/${product._id}`} className="btn btn-primary">Update</Link>
-                            <button onClick={() => handleDeleteUser(product._id)} className="btn btn-danger">Delete</button>
+                            <button onClick={() => handleDeleteUser(product._id)} className="btn btn-danger m-2">Delete</button>
                         </div>
                     </div>
                 ))
