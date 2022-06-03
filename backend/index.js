@@ -43,6 +43,12 @@ async function run() {
     res.json(products);
   });
 
+  // get simgle products
+  app.get("/api/products/:id", async (req, res) => {
+    const id = req.params.id;
+    const product = await collection.findOne({ _id: ObjectId(id) });
+    res.json(product);
+  }); 
   // update api
   app.put("/api/products/:id", async (req, res) => {
     const { id } = req.params;
